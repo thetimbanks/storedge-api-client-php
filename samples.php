@@ -3,8 +3,6 @@
 
   date_default_timezone_set('America/Chicago');
 
-  use RedNovaLabs\Storedge\Event;
-  use RedNovaLabs\Storedge\Query;
   use RedNovaLabs\Storedge\SDK;
 
   // Define base url, key, and secret
