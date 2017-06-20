@@ -13,7 +13,9 @@ Guzzle client wrapper for Storedge API
     }
 ]
 ```
-*  Run command: `composer require rednovalabs/storedge-api-client-php@dev-master`
+
+*  Set minimum stability in composer.json to `dev`
+*  Run command: `composer require rednovalabs/storedge-sdk-php=master`
 
 ## API Documentation
 
