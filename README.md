@@ -37,8 +37,8 @@ $client = new SDK($base_url, $api_key, $api_secret);
 // ... continued
 
 // Create any needed uuids
-$facility_uuid = '[INSERT]]';
-$tenant_uuid = '[INSERT]]';
+$facility_uuid = '[INSERT]';
+$tenant_uuid = '[INSERT]';
 
 // Send the request
 
