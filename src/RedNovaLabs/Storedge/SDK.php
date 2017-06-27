@@ -94,7 +94,7 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception('Something went wrong with API request', 500, $e);
+            throw new Exception("\nSomething went wrong with API request", 500, $e);
         }
     }
 
@@ -121,7 +121,7 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception('Something went wrong with API request', 500, $e);
+            throw new Exception("\nSomething went wrong with API request", 500, $e);
         }
     }
 
@@ -148,7 +148,7 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception('Something went wrong with API request', 500, $e);
+            throw new Exception("\nSomething went wrong with API request", 500, $e);
         }
     }
 
@@ -159,20 +159,25 @@ class SDK {
      * @throws RedNovaLabs\Storedge\Exception
      * @return Object $response     Object containing information from request
      */
-    protected function delete($path)
+    protected function delete($path, $data)
     {
         try {
             // Sanitize path (Guzzle is pretty particular about this)
             $path = ltrim($path, './');
 
             // Do a DELETE request
-            $response = $this->getClient()->request('DELETE', $path);
+            if ($data == null)
+              $response = $this->getClient()->request('DELETE', $path);
+            else
+              $response = $this->getClient()->request('DELETE', $path, [
+                  'json' => $data
+              ]);
 
             // Try to convert the response to JSON
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception('Something went wrong with API request', 500, $e);
+          throw new Exception("\nSomething went wrong with API request", 500, $e);
         }
     }
 
@@ -196,35 +201,115 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception('Something went wrong with API request', 500, $e);
+            throw new Exception("\nSomething went wrong with API request", 500, $e);
         }
     }
 
-    //Units
-    public function getUnits($facility_uuid)
+    protected function getQuery(array $options)
     {
-      return $this->get($base_url . $facility_uuid . '/units');
+        $query = '';
+        $first = true;
+        foreach ($options as $option => $value) {
+          if ($first) {
+            $query = $query . '?';
+            $first = false;
+          } else {
+            $query = $query .'&';
+          }
+
+          $query = $query . $option . '=' . $value;
+        }
+
+        return $query;
     }
 
-    public function getAvailableUnits($facility_uuid)
+    //Leads
+    public function deleteLead($facility_uuid, $lead_uuid, $params)
     {
-      return $this->get($base_url . $facility_uuid . '/units/available');
-    }
+      try {
+        return $this->delete($base_url . $facility_uuid . '/leads/' . $lead_uuid, $params);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
 
-    public function getSpecificUnit($facility_uuid, $unit_uuid)
-    {
-      return $this->get($base_url . $facility_uuid . '/units/' . $unit_uuid);
     }
 
     //Tenants
-    public function changeTenantPassword($facility_uuid, $tenant_uuid, array $data)
+    public function updateTenantPATCH($facility_uuid, $tenant_uuid, array $data)
     {
-      return $this->put($base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/change_password', $data);
+      try {
+        return $this->patch($base_url . $facility_uuid . '/tenants/' . $tenant_uuid, $data);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+
+    }
+
+    public function updateTenantPUT($facility_uuid, $tenant_uuid, array $data)
+    {
+      try {
+        return $this->put($base_url . $facility_uuid . '/tenants/' . $tenant_uuid, $data);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
     }
 
     public function signUpTenant($facility_uuid, $tenant_uuid, array $data)
     {
-      return $this->post($base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/sign_up', $data);
+      try {
+        return $this->post($base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/sign_up', $data);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    public function changeTenantPassword($facility_uuid, $tenant_uuid, array $data)
+    {
+      try {
+        return $this->put($base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/change_password', $data);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    //Units
+    public function getUnits($facility_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      try {
+        return $this->get($base_url . $facility_uuid . '/units' . $query);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    public function getAvailableUnits($facility_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      try {
+        return $this->get($base_url . $facility_uuid . '/units/available' . $query);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    public function getSpecificUnit($facility_uuid, $unit_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      try {
+        return $this->get($base_url . $facility_uuid . '/units/' . $unit_uuid . $query);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
     }
 
 }

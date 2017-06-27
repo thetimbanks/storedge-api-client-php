@@ -26,7 +26,7 @@ Guzzle client wrapper for Storedge API
 require('vendor/autoload.php');
 use RedNovaLabs\Storedge\SDK;
 
-$base_url = 'https://api.storedgefms.com/docs/v1/';
+$base_url = 'https://api.storedgefms.com/v1/';
 $api_key  = '[INSERT]';
 $api_secret = '[INSERT]';
 $client = new SDK($base_url, $api_key, $api_secret);
@@ -40,7 +40,6 @@ $client = new SDK($base_url, $api_key, $api_secret);
 
 // Create any needed uuids
 $facility_uuid = '[INSERT]';
-$tenant_uuid = '[INSERT]';
 
 // Send the request
 
@@ -52,10 +51,12 @@ $units = $client->getUnits($facility_uuid);
 $tenant = json_decode(
 '{
   "tenant": {
-      "password": "supersecretpassword",
+    "password": "supersecretpassword",
     "username": "awesome_o_5000"
   }
 }', true);
 
 $newTenant = $client->signUpTenant($facility_uuid, $tenant_uuid, $tenant);
+
 ```
+* See samples.php for more information
