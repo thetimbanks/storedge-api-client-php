@@ -94,7 +94,7 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception("\nSomething went wrong with API request", 500, $e);
+            throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
         }
     }
 
@@ -121,7 +121,7 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception("\nSomething went wrong with API request", 500, $e);
+            throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
         }
     }
 
@@ -148,7 +148,7 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception("\nSomething went wrong with API request", 500, $e);
+            throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
         }
     }
 
@@ -177,7 +177,7 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-          throw new Exception("\nSomething went wrong with API request", 500, $e);
+          throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
         }
     }
 
@@ -201,7 +201,7 @@ class SDK {
             return json_decode($response->getBody());
 
         } catch (BaseException $e) {
-            throw new Exception("\nSomething went wrong with API request", 500, $e);
+            throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
         }
     }
 
@@ -224,6 +224,28 @@ class SDK {
     }
 
     //Leads
+    public function getLeads($facility_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      try {
+        return $this->get($base_url . $facility_uuid . '/leads' . $query);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    public function createLead($facility_uuid, array $data)
+    {
+      try {
+        return $this->post($base_url . $facility_uuid . '/leads', $data);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
     public function deleteLead($facility_uuid, $lead_uuid, $params)
     {
       try {
@@ -267,6 +289,46 @@ class SDK {
     {
       try {
         return $this->put($base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/change_password', $data);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    //Unit groups
+    public function getUnitGroups($facility_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      try {
+        return $this->get($base_url . $facility_uuid . '/unit_groups' . $query);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    public function getSpecificUnitGroup($facility_uuid, $unit_group_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      try {
+        return $this->get($base_url . $facility_uuid . '/unit_groups/' . $unit_group_uuid . $query);
+      } catch (BaseException $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    public function getUnitGroupUnits($facility_uuid, $unit_group_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      try {
+        return $this->get($base_url . $facility_uuid . '/unit_groups/' . $unit_group_uuid . '/units' . $query);
       } catch (BaseException $e) {
         echo $e->getMessage();
       }
