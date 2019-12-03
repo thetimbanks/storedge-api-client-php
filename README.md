@@ -9,13 +9,13 @@ Guzzle client wrapper for Storedge API
 "repositories": [
     {
         "type": "vcs",
-        "url": "https://github.com/rednovalabs/storedge-api-client-php"
+        "url": "https://github.com/thetimbanks/storedge-api-client-php"
     }
 ]
 ```
 
 *  Set minimum stability in composer.json to `dev`
-*  Run command: `composer require rednovalabs/storedge-sdk-php=master`
+*  Run command: `composer require thetimbanks/storedge-sdk-php=master`
 
 ## API Documentation
 

@@ -81,21 +81,17 @@ class SDK {
      */
     protected function post($path, array $data)
     {
-        try {
-            // Sanitize path (Guzzle is pretty particular about this)
-            $path = ltrim($path, './');
+      // Sanitize path (Guzzle is pretty particular about this)
+      $path = ltrim($path, './');
 
-            // Do a POST request
-            $response = $this->getClient()->request('POST', $path, [
-                'json' => $data
-            ]);
+      // Do a POST request
+      $response = $this->getClient()->request('POST', $path, [
+          'json' => $data,
+          'http_errors' => false
+      ]);
 
-            // Try to convert the response to JSON
-            return json_decode($response->getBody());
-
-        } catch (BaseException $e) {
-            throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
-        }
+      // Try to convert the response to JSON
+      return json_decode($response->getBody());
     }
 
     /**
@@ -108,21 +104,17 @@ class SDK {
      */
     protected function patch($path, array $data)
     {
-        try {
-            // Sanitize path (Guzzle is pretty particular about this)
-            $path = ltrim($path, './');
+      // Sanitize path (Guzzle is pretty particular about this)
+      $path = ltrim($path, './');
 
-            // Do a PATCH request
-            $response = $this->getClient()->request('PATCH', $path, [
-                'json' => $data
-            ]);
+      // Do a PATCH request
+      $response = $this->getClient()->request('PATCH', $path, [
+          'json' => $data,
+          'http_errors' => false
+      ]);
 
-            // Try to convert the response to JSON
-            return json_decode($response->getBody());
-
-        } catch (BaseException $e) {
-            throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
-        }
+      // Try to convert the response to JSON
+      return json_decode($response->getBody());
     }
 
     /**
@@ -135,21 +127,17 @@ class SDK {
      */
     protected function put($path, array $data)
     {
-        try {
-            // Sanitize path (Guzzle is pretty particular about this)
-            $path = ltrim($path, './');
+      // Sanitize path (Guzzle is pretty particular about this)
+      $path = ltrim($path, './');
 
-            // Do a PUT request
-            $response = $this->getClient()->request('PUT', $path, [
-                'json' => $data
-            ]);
+      // Do a PUT request
+      $response = $this->getClient()->request('PUT', $path, [
+          'json' => $data,
+          'http_errors' => false
+      ]);
 
-            // Try to convert the response to JSON
-            return json_decode($response->getBody());
-
-        } catch (BaseException $e) {
-            throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
-        }
+      // Try to convert the response to JSON
+      return json_decode($response->getBody());
     }
 
     /**
@@ -161,24 +149,20 @@ class SDK {
      */
     protected function delete($path, $data)
     {
-        try {
-            // Sanitize path (Guzzle is pretty particular about this)
-            $path = ltrim($path, './');
+      // Sanitize path (Guzzle is pretty particular about this)
+      $path = ltrim($path, './');
 
-            // Do a DELETE request
-            if ($data == null)
-              $response = $this->getClient()->request('DELETE', $path);
-            else
-              $response = $this->getClient()->request('DELETE', $path, [
-                  'json' => $data
-              ]);
+      // Do a DELETE request
+      if ($data == null)
+        $response = $this->getClient()->request('DELETE', $path);
+      else
+        $response = $this->getClient()->request('DELETE', $path, [
+            'json' => $data,
+            'http_errors' => false
+        ]);
 
-            // Try to convert the response to JSON
-            return json_decode($response->getBody());
-
-        } catch (BaseException $e) {
-          throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
-        }
+      // Try to convert the response to JSON
+      return json_decode($response->getBody());
     }
 
     /**
@@ -190,19 +174,14 @@ class SDK {
      */
     protected function get($path)
     {
-        try {
-            // Sanitize path (Guzzle is pretty particular about this)
-            $path = ltrim($path, './');
+      // Sanitize path (Guzzle is pretty particular about this)
+      $path = ltrim($path, './');
 
-            // Do a GET request
-            $response = $this->getClient()->request('GET', $path);
+      // Do a GET request
+      $response = $this->getClient()->request('GET', $path);
 
-            // Try to convert the response to JSON
-            return json_decode($response->getBody());
-
-        } catch (BaseException $e) {
-            throw new Exception("\nSomething went wrong with API request. Error: \n" . $e->getMessage(), 500, $e);
-        }
+      // Try to convert the response to JSON
+      return json_decode($response->getBody());
     }
 
     protected function getQuery(array $options)
@@ -230,68 +209,38 @@ class SDK {
       if ($options != null)
         $query = $this->getQuery($options);
 
-      try {
-        return $this->get($base_url . $facility_uuid . '/leads' . $query);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->get($this->base_url . $facility_uuid . '/leads' . $query);
     }
 
     public function createLead($facility_uuid, array $data)
     {
-      try {
-        return $this->post($base_url . $facility_uuid . '/leads', $data);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->post($this->base_url . $facility_uuid . '/leads', $data);
     }
 
     public function deleteLead($facility_uuid, $lead_uuid, $params)
     {
-      try {
-        return $this->delete($base_url . $facility_uuid . '/leads/' . $lead_uuid, $params);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
-
+      return $this->delete($this->base_url . $facility_uuid . '/leads/' . $lead_uuid, $params);
     }
 
     //Tenants
     public function updateTenantPATCH($facility_uuid, $tenant_uuid, array $data)
     {
-      try {
-        return $this->patch($base_url . $facility_uuid . '/tenants/' . $tenant_uuid, $data);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
-
+      return $this->patch($this->base_url . $facility_uuid . '/tenants/' . $tenant_uuid, $data);
     }
 
     public function updateTenantPUT($facility_uuid, $tenant_uuid, array $data)
     {
-      try {
-        return $this->put($base_url . $facility_uuid . '/tenants/' . $tenant_uuid, $data);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->put($this->base_url . $facility_uuid . '/tenants/' . $tenant_uuid, $data);
     }
 
     public function signUpTenant($facility_uuid, $tenant_uuid, array $data)
     {
-      try {
-        return $this->post($base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/sign_up', $data);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->post($this->base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/sign_up', $data);
     }
 
     public function changeTenantPassword($facility_uuid, $tenant_uuid, array $data)
     {
-      try {
-        return $this->put($base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/change_password', $data);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->put($this->base_url . $facility_uuid . '/tenants/' . $tenant_uuid . '/change_password', $data);
     }
 
     //Unit groups
@@ -301,11 +250,7 @@ class SDK {
       if ($options != null)
         $query = $this->getQuery($options);
 
-      try {
-        return $this->get($base_url . $facility_uuid . '/unit_groups' . $query);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->get($this->base_url . $facility_uuid . '/unit_groups' . $query);
     }
 
     public function getSpecificUnitGroup($facility_uuid, $unit_group_uuid, $options)
@@ -314,11 +259,7 @@ class SDK {
       if ($options != null)
         $query = $this->getQuery($options);
 
-      try {
-        return $this->get($base_url . $facility_uuid . '/unit_groups/' . $unit_group_uuid . $query);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->get($this->base_url . $facility_uuid . '/unit_groups/' . $unit_group_uuid . $query);
     }
 
     public function getUnitGroupUnits($facility_uuid, $unit_group_uuid, $options)
@@ -327,11 +268,7 @@ class SDK {
       if ($options != null)
         $query = $this->getQuery($options);
 
-      try {
-        return $this->get($base_url . $facility_uuid . '/unit_groups/' . $unit_group_uuid . '/units' . $query);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->get($this->base_url . $facility_uuid . '/unit_groups/' . $unit_group_uuid . '/units' . $query);
     }
 
     //Units
@@ -341,11 +278,7 @@ class SDK {
       if ($options != null)
         $query = $this->getQuery($options);
 
-      try {
-        return $this->get($base_url . $facility_uuid . '/units' . $query);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->get($this->base_url . $facility_uuid . '/units' . $query);
     }
 
     public function getAvailableUnits($facility_uuid, $options)
@@ -354,11 +287,7 @@ class SDK {
       if ($options != null)
         $query = $this->getQuery($options);
 
-      try {
-        return $this->get($base_url . $facility_uuid . '/units/available' . $query);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->get($this->base_url . $facility_uuid . '/units/available' . $query);
     }
 
     public function getSpecificUnit($facility_uuid, $unit_uuid, $options)
@@ -367,11 +296,7 @@ class SDK {
       if ($options != null)
         $query = $this->getQuery($options);
 
-      try {
-        return $this->get($base_url . $facility_uuid . '/units/' . $unit_uuid . $query);
-      } catch (BaseException $e) {
-        echo $e->getMessage();
-      }
+      return $this->get($this->base_url . $facility_uuid . '/units/' . $unit_uuid . $query);
     }
 
 }
