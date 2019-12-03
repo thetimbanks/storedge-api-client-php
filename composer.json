@@ -1,5 +1,5 @@
 {
-    "name": "rednovalabs/storedge-sdk-php",
+    "name": "thetimbanks/storedge-sdk-php",
     "description": "Guzzle client wrapper for Storedge API",
     "require": {
         "guzzlehttp/guzzle": "^6.2.1"
@@ -16,6 +16,10 @@
         {
             "name": "Varun Chadha",
             "email": "vchadha@rednovalabs.com"
+        },
+        {
+            "name": "Tim Banks",
+            "email": "thetimbanks@gmail.com.com"
         }
     ],
     "minimum-stability": "stable"
