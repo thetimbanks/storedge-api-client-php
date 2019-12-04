@@ -202,6 +202,16 @@ class SDK {
         return $query;
     }
 
+    //Facility
+    public function getFacility($facility_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      return $this->get($this->base_url . $facility_uuid . '/info' . $query);
+    }
+
     //Leads
     public function getLeads($facility_uuid, $options)
     {
