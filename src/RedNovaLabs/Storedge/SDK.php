@@ -309,4 +309,13 @@ class SDK {
       return $this->get($this->base_url . $facility_uuid . '/units/' . $unit_uuid . $query);
     }
 
+    public function getDiscountPlan($facility_uuid, $discount_plan_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      return $this->get($this->base_url . $facility_uuid . '/discount_plans/' . $discount_plan_uuid . $query);
+    }
+
 }
