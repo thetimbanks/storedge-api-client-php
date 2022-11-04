@@ -318,4 +318,8 @@ class SDK {
       return $this->get($this->base_url . $facility_uuid . '/discount_plans/' . $discount_plan_uuid . $query);
     }
 
+    public function signInTenant($facility_uuid, array $data)
+    {
+      return $this->post($this->base_url . $facility_uuid . '/tenants/sign_in', $data);
+    }
 }
