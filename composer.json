@@ -14,12 +14,8 @@
     },
     "authors": [
         {
-            "name": "Varun Chadha",
-            "email": "vchadha@rednovalabs.com"
-        },
-        {
             "name": "Tim Banks",
-            "email": "thetimbanks@gmail.com.com"
+            "email": "thetimbanks@gmail.com"
         }
     ],
     "minimum-stability": "stable"

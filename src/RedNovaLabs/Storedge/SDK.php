@@ -322,4 +322,9 @@ class SDK {
     {
       return $this->post($this->base_url . $facility_uuid . '/tenants/sign_in', $data);
     }
+
+    public function processMoveIn($facility_uuid, array $data)
+    {
+      return $this->post($this->base_url . $facility_uuid . '/process_move_in', $data);
+    }
 }
