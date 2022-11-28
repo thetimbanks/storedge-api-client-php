@@ -325,6 +325,6 @@ class SDK {
 
     public function processMoveIn($facility_uuid, array $data)
     {
-      return $this->post($this->base_url . $facility_uuid . '/process_move_in', $data);
+      return $this->post($this->base_url . $facility_uuid . '/move_ins/process_move_in', $data);
     }
 }
