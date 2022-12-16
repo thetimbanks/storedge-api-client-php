@@ -328,6 +328,11 @@ class SDK {
       return $this->post($this->base_url . $facility_uuid . '/move_ins/process_move_in', $data);
     }
 
+    public function reviewCost($facility_uuid, array $data)
+    {
+      return $this->post($this->base_url . $facility_uuid . '/move_ins/review_cost', $data);
+    }
+
     public function getInsurancePolicies($facility_uuid, $options)
     {
       $query = '';
