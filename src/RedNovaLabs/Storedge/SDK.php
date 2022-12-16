@@ -327,4 +327,13 @@ class SDK {
     {
       return $this->post($this->base_url . $facility_uuid . '/move_ins/process_move_in', $data);
     }
+
+    public function getInsurancePolicies($facility_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      return $this->get($this->base_url . $facility_uuid . '/invoiceable_items/insurance');
+    }
 }
