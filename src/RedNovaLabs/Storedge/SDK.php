@@ -333,12 +333,13 @@ class SDK {
       return $this->post($this->base_url . $facility_uuid . '/move_ins/review_cost', $data);
     }
 
-    public function getInsurancePolicies($facility_uuid, $options)
+    public function getInsurancePolicies($facility_uuid)
     {
-      $query = '';
-      if ($options != null)
-        $query = $this->getQuery($options);
-
       return $this->get($this->base_url . $facility_uuid . '/invoiceable_items/insurance');
+    }
+
+    public function getTenantPortalSettings($facility_uuid)
+    {
+      return $this->get($this->base_url . $facility_uuid . '/tenant_portal_settings');
     }
 }
