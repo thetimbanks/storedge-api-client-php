@@ -318,9 +318,13 @@ class SDK {
       return $this->get($this->base_url . $facility_uuid . '/discount_plans/' . $discount_plan_uuid . $query);
     }
 
-    public function signInTenant($facility_uuid, array $data)
+    public function signInTenant($facility_uuid, array $data, $options)
     {
-      return $this->post($this->base_url . $facility_uuid . '/tenants/sign_in', $data);
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      return $this->post($this->base_url . $facility_uuid . '/tenants/sign_in' . $query, $data);
     }
 
     public function processMoveIn($facility_uuid, array $data)
@@ -328,9 +332,11 @@ class SDK {
       return $this->post($this->base_url . $facility_uuid . '/move_ins/process_move_in', $data);
     }
 
-    public function reviewCost($facility_uuid, array $data)
+    public function reviewCost($url_override, $facility_uuid, $unit_uuid, array $data)
     {
-      return $this->post($this->base_url . $facility_uuid . '/move_ins/review_cost', $data);
+      $reviewCostUrl = isset($url_override) ? $url_override : $this->base_url . $facility_uuid . '/move_ins/review_cost';
+      $data['move_in']['should_generate_documents'] = false;
+      return $this->post($reviewCostUrl, $data);
     }
 
     public function getInsurancePolicies($facility_uuid)
@@ -341,5 +347,15 @@ class SDK {
     public function getTenantPortalSettings($facility_uuid)
     {
       return $this->get($this->base_url . $facility_uuid . '/tenant_portal_settings');
+    }
+
+    public function getFacilityServices($facility_uuid)
+    {
+      return $this->get($this->base_url . $facility_uuid . '/invoiceable_items/services');
+    }
+
+    public function getFacilityRentalCenterInvoiceableItems($facility_uuid)
+    {
+      return $this->get($this->base_url . $facility_uuid . '/invoiceable_items/rental_center');
     }
 }
