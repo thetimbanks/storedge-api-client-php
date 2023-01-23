@@ -335,7 +335,7 @@ class SDK {
     public function reviewCost($url_override, $facility_uuid, $unit_uuid, array $data)
     {
       $reviewCostUrl = isset($url_override) ? $url_override : $this->base_url . $facility_uuid . '/move_ins/review_cost';
-      $data['move_in']['should_generate_documents'] = false;
+
       return $this->post($reviewCostUrl, $data);
     }
 
