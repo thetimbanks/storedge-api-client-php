@@ -358,4 +358,9 @@ class SDK {
     {
       return $this->get($this->base_url . $facility_uuid . '/invoiceable_items/rental_center');
     }
+
+    public function getUnitGroupTierRates($facility_uuid)
+    {
+      return $this->get($this->base_url . $facility_uuid . '/unit_group_tier_rates');
+    }
 }
