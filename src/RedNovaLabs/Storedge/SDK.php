@@ -367,4 +367,13 @@ class SDK {
 
       return $this->get($this->base_url . $facility_uuid . '/unit_group_tier_rates' . $query);
     }
+
+    public function v2GetAvailableUnits($facility_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      return $this->get($this->base_url . 'facilities/' . $facility_uuid . '/units/availability' . $query);
+    }
 }
