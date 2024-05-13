@@ -376,4 +376,13 @@ class SDK {
 
       return $this->get($this->base_url . 'facilities/' . $facility_uuid . '/units/availability' . $query);
     }
+
+    public function getUnitGroupTiers($company_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      return $this->get($this->base_url . 'companies/' . $company_uuid . '/tiers' . $query);
+    }
 }
