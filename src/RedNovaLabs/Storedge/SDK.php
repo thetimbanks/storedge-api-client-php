@@ -385,4 +385,13 @@ class SDK {
 
       return $this->get($this->base_url . 'companies/' . $company_uuid . '/tiers' . $query);
     }
+
+    public function v2GetUnits($facility_uuid, $options)
+    {
+      $query = '';
+      if ($options != null)
+        $query = $this->getQuery($options);
+
+      return $this->get($this->base_url . 'facilities/' . $facility_uuid . '/units' . $query);
+    }
 }
