@@ -401,6 +401,6 @@ class SDK {
       if ($options != null)
         $query = $this->getQuery($options);
 
-      return $this->get($this->base_url . 'facilities/' . $facility_uuid . '/unit_groups' . $unit_group_uuid . '/due_at_move_in_without_fees' . $query);
+      return $this->get($this->base_url . 'facilities/' . $facility_uuid . '/unit_groups/' . $unit_group_uuid . '/due_at_move_in_without_fees' . $query);
     }
 }
